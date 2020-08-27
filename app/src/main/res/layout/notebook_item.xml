@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import
+            alias="DateTimeFormat"
+            type="org.joda.time.format.DateTimeFormat" />
+
+        <import
+            alias="DateTime"
+            type="org.joda.time.DateTime" />
+
+        <import
+            alias="Days"
+            type="org.joda.time.Days" />
+
+        <variable
+            name="notebook"
+            type="com.bukonudakonusalim.takenotes.data.model.NotebookModel" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginVertical="24dp"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="2dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_margin="24dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="sans-serif-light"
+                android:maxLines="10"
+                android:text="@{notebook.notebookDescription}"
+                android:textColor="#646464"
+                android:textSize="18sp"
+                tools:text="" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:maxLines="3"
+                android:text="@{notebook.notebookName}"
+                android:textColor="#646464"
+                android:textSize="24sp"
+                tools:text="@tools:sample/lorem/random" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:textColor="#646464"
+                android:textSize="14sp"
+                tools:text="@{String.format(`Created %d days ago.`, Days.daysBetween(notebook.createdAt, DateTime.now()).getDays())}" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>
