@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar_new_note"
+                android:layout_width="match_parent"
+                app:title="New note"
+                android:layout_height="56dp">
+            </com.google.android.material.appbar.MaterialToolbar>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="24dp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="sans-serif"
+                    android:text="What are you planning to put in the memory?"
+                    android:textColor="#969696"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/et_note_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@null"
+                    android:fontFamily="sans-serif-medium"
+                    android:hint="Enter title"
+                    android:inputType="textLongMessage|textMultiLine"
+                    android:maxLength="250"
+                    android:paddingHorizontal="24dp"
+                    android:paddingVertical="16dp"
+                    android:textColor="#757575"
+                    android:textColorHint="#A5A5A5"
+                    android:textSize="22sp" />
+
+                <EditText
+                    android:id="@+id/et_note_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:fontFamily="sans-serif-medium"
+                    android:hint="Enter description"
+                    android:maxLength="7500"
+                    android:paddingHorizontal="24dp"
+                    android:paddingVertical="16dp"
+                    android:textColor="#757575"
+                    android:textColorHint="#A5A5A5"
+                    android:textSize="18sp" />
+            </LinearLayout>
+        </ScrollView>
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/btn_create_note"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|bottom"
+            android:layout_marginBottom="16dp"
+            app:backgroundTint="@color/colorPrimary"
+            app:iconTint="#FFFFFF"
+            android:textColor="#FFFFFF"
+            android:text="Save the note"
+            app:icon="@drawable/ic_round_save_24" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

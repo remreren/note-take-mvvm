@@ -1,10 +1,5 @@
 package com.bukonudakonusalim.takenotes.data.model;
 
-import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.databinding.BindingAdapter;
-
 import org.joda.time.DateTime;
 
 public class NotebookModel {
@@ -17,6 +12,7 @@ public class NotebookModel {
     private boolean isDeleted;
     private DateTime createdAt;
     private DateTime updatedAt;
+    private int size;
 
     public NotebookModel() {
 
@@ -95,10 +91,5 @@ public class NotebookModel {
 
     public void setUpdatedAt(DateTime updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-    @BindingAdapter("dateBinding")
-    public static void bindDateBinding(@NonNull TextView textView, String date) {
-
     }
 }
