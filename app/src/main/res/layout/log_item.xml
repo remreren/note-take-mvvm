@@ -4,7 +4,7 @@
     <data>
         <variable
             name="log"
-            type="advancelogger.log.LogModel" />
+            type="logme.log.LogModel" />
     </data>
 
     <TextView

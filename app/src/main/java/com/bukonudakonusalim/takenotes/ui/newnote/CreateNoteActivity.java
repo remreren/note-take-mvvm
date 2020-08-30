@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
 
-import com.bukonudakonusalim.takenotes.Datas;
+import com.bukonudakonusalim.takenotes.utils.Datas;
 import com.bukonudakonusalim.takenotes.R;
 import com.bukonudakonusalim.takenotes.data.model.NoteModel;
 import com.bukonudakonusalim.takenotes.databinding.ActivityCreateNoteBinding;

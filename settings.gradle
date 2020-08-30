@@ -1,2 +1,2 @@
-include ':app', ':logme', ':advancelogger:advancelogger', ':advancelogger:advancelogger-lint'
+include ':app', ':logme'
 rootProject.name = "Take Notes"

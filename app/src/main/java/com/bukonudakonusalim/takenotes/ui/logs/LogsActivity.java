@@ -11,6 +11,10 @@ import com.bukonudakonusalim.takenotes.App;
 import com.bukonudakonusalim.takenotes.R;
 import com.bukonudakonusalim.takenotes.databinding.ActivityLogsBinding;
 
+import java.util.List;
+
+import logme.log.LogModel;
+
 public class LogsActivity extends AppCompatActivity {
 
     private ActivityLogsBinding mBinding;
@@ -36,7 +40,10 @@ public class LogsActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        new Thread(() -> mLogsAdapter.setLogs(App.tree.getDatabase().logDao().getAllLogs())).start();
+        new Thread(() -> {
+            List<LogModel> logs = App.tree.getDatabase().logDao().getAllLogs();
+            runOnUiThread(() -> mLogsAdapter.setLogs(logs));
+        }).start();
         super.onResume();
     }
 }

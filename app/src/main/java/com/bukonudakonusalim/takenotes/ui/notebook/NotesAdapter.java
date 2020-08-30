@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bukonudakonusalim.takenotes.R;
 import com.bukonudakonusalim.takenotes.data.model.NoteModel;
 import com.bukonudakonusalim.takenotes.databinding.NoteItemBinding;
-import com.bukonudakonusalim.takenotes.utils.BaseViewHolder;
+import com.bukonudakonusalim.takenotes.base.BaseViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;

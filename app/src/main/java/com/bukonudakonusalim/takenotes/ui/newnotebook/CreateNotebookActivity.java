@@ -11,7 +11,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.bukonudakonusalim.takenotes.Datas;
+import com.bukonudakonusalim.takenotes.utils.Datas;
 import com.bukonudakonusalim.takenotes.R;
 import com.bukonudakonusalim.takenotes.data.model.NotebookModel;
 import com.bukonudakonusalim.takenotes.databinding.ActivityCreateNotebookBinding;

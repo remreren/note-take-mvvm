@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -13,28 +14,86 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingHorizontal="24dp"
+        android:paddingHorizontal="16dp"
         android:paddingVertical="8dp">
 
-        <TextView
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-medium"
-            android:maxLines="1"
-            android:textColor="#757575"
-            android:textSize="18sp"
-            tools:text="Test Title item"
-            android:text="@{note.title}"/>
+            android:paddingVertical="8dp"
+            android:paddingHorizontal="4dp"
+            android:orientation="horizontal">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="50dp"
+                android:layout_height="12dp"
+                android:backgroundTint="#F48FB1"
+                app:cardCornerRadius="4dp"
+                android:layout_marginHorizontal="4dp"
+                app:cardElevation="2dp" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="50dp"
+                android:layout_height="12dp"
+                android:backgroundTint="#B39DDB"
+                app:cardCornerRadius="4dp"
+                android:layout_marginHorizontal="4dp"
+                app:cardElevation="2dp" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="50dp"
+                android:layout_height="12dp"
+                android:backgroundTint="#81D4FA"
+                app:cardCornerRadius="4dp"
+                android:layout_marginHorizontal="4dp"
+                app:cardElevation="2dp" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="50dp"
+                android:layout_height="12dp"
+                android:backgroundTint="#FFAB91"
+                app:cardCornerRadius="4dp"
+                android:layout_marginHorizontal="4dp"
+                app:cardElevation="2dp" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="50dp"
+                android:layout_height="12dp"
+                android:backgroundTint="#A5D6A7"
+                app:cardCornerRadius="4dp"
+                android:layout_marginHorizontal="4dp"
+                app:cardElevation="2dp" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="50dp"
+                android:layout_height="12dp"
+                android:backgroundTint="#E6EE9C"
+                app:cardCornerRadius="4dp"
+                android:layout_marginHorizontal="4dp"
+                app:cardElevation="2dp" />
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:fontFamily="sans-serif-medium"
+            android:maxLines="1"
+            android:text="@{note.title}"
+            android:textColor="#757575"
+            android:textSize="18sp"
+            tools:text="Test Title item" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
             android:layout_marginTop="4dp"
             android:fontFamily="sans-serif"
             android:maxLines="4"
+            android:text="@{note.content}"
             android:textColor="#757575"
             android:textSize="14sp"
-            tools:text="Test content item"
-            android:text="@{note.content}"/>
+            tools:text="Test content item" />
     </LinearLayout>
 </layout>

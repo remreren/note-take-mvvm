@@ -1,4 +1,4 @@
-package com.bukonudakonusalim.takenotes.utils;
+package com.bukonudakonusalim.takenotes.base;
 
 import android.view.View;
 

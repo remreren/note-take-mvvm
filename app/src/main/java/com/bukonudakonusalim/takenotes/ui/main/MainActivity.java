@@ -9,7 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.bukonudakonusalim.takenotes.Datas;
+import com.bukonudakonusalim.takenotes.utils.Datas;
 import com.bukonudakonusalim.takenotes.R;
 import com.bukonudakonusalim.takenotes.databinding.ActivityMainBinding;
 import com.bukonudakonusalim.takenotes.ui.logs.LogsActivity;

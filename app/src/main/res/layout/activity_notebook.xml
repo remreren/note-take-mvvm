@@ -25,6 +25,8 @@
                     android:layout_height="56dp"
                     app:layout_collapseMode="pin"
                     app:subtitle="10 notes"
+                    android:elevation="0dp"
+                    app:elevation="0dp"
                     app:title="Title" />
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>

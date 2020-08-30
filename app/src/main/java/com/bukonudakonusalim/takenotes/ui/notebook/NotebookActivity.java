@@ -9,11 +9,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.bukonudakonusalim.takenotes.Datas;
+import com.bukonudakonusalim.takenotes.utils.Datas;
 import com.bukonudakonusalim.takenotes.R;
 import com.bukonudakonusalim.takenotes.databinding.ActivityNotebookBinding;
 import com.bukonudakonusalim.takenotes.ui.newnote.CreateNoteActivity;
-import com.bukonudakonusalim.takenotes.ui.newnotebook.CreateNotebookActivity;
 
 public class NotebookActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -51,7 +50,6 @@ public class NotebookActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View view) {
         if (view.getId() == mBinding.btnAddNote.getId()) {
-//            mNotesAdapter.addNotes(Datas.getNotes());
             Intent intent = new Intent(NotebookActivity.this, CreateNoteActivity.class);
             startActivity(intent);
         }

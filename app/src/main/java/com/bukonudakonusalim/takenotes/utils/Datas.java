@@ -1,4 +1,4 @@
-package com.bukonudakonusalim.takenotes;
+package com.bukonudakonusalim.takenotes.utils;
 
 import com.bukonudakonusalim.takenotes.data.model.NoteModel;
 import com.bukonudakonusalim.takenotes.data.model.NotebookModel;
