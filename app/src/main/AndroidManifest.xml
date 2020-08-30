@@ -11,6 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme">
         <activity
+            android:name=".ui.logs.LogsActivity"
+            android:theme="@style/Theme.StatusBar" />
+        <activity
             android:name=".ui.newnote.CreateNoteActivity"
             android:parentActivityName=".ui.notebook.NotebookActivity"
             android:theme="@style/Theme.StatusBar" />

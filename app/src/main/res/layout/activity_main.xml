@@ -2,51 +2,66 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@drawable/background_color">
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/btn_logs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="logs"
+            android:textSize="18sp"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:layout_gravity="top|end"/>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="56dp"
-            android:layout_marginTop="56dp"
-            android:layout_marginBottom="32dp"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@drawable/background_color">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-medium"
-                android:text="Welcome!"
-                android:textColor="#E6FFFFFF"
-                android:textSize="32sp"
-                tools:text="Welcome emre" />
+                android:layout_marginHorizontal="56dp"
+                android:layout_marginTop="56dp"
+                android:layout_marginBottom="32dp"
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-medium"
-                android:text="Today"
-                android:textColor="#BFFFFFFF"
-                android:textSize="20sp"
-                tools:text="Today" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Welcome!"
+                    android:textColor="#E6FFFFFF"
+                    android:textSize="32sp"
+                    tools:text="Welcome emre" />
 
-            <TextView
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Today"
+                    android:textColor="#BFFFFFFF"
+                    android:textSize="20sp"
+                    tools:text="Today" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Wednesday"
+                    android:textColor="#BFFFFFFF"
+                    android:textSize="18sp"
+                    tools:text="@tools:sample/date/day_of_week" />
+            </LinearLayout>
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/vp_notebooks"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-medium"
-                android:text="Wednesday"
-                android:textColor="#BFFFFFFF"
-                android:textSize="18sp"
-                tools:text="@tools:sample/date/day_of_week" />
+                android:layout_height="match_parent" />
         </LinearLayout>
-
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/vp_notebooks"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
+    </FrameLayout>
 </layout>
