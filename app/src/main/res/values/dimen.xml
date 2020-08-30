@@ -2,4 +2,5 @@
 <resources>
     <dimen name="pageMargin">30dp</dimen>
     <dimen name="offset">30dp</dimen>
+    <dimen name="selectedHeight">16dp</dimen>
 </resources>

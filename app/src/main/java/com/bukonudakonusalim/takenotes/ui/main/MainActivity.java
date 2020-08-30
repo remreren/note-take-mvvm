@@ -16,8 +16,6 @@ import com.bukonudakonusalim.takenotes.ui.logs.LogsActivity;
 import com.bukonudakonusalim.takenotes.ui.newnotebook.CreateNotebookActivity;
 import com.bukonudakonusalim.takenotes.ui.notebook.NotebookActivity;
 
-import advancelogger.log.AdvanceLogger;
-
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ActivityMainBinding mBinding;
@@ -28,9 +26,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-
-        AdvanceLogger.wtf("restarted");
-
 
         mBinding.btnLogs.setOnClickListener(this);
         initNotebooksViewpager();
@@ -56,14 +51,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        float pageMargin = getResources().getDimensionPixelOffset(R.dimen.pageMargin);
-        float pageOffset = getResources().getDimensionPixelOffset(R.dimen.offset);
-
         mBinding.vpNotebooks.setAdapter(mNotebooksAdapter);
         mBinding.vpNotebooks.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
         mBinding.vpNotebooks.setOffscreenPageLimit(3);
+        setPageTransformer();
+    }
+
+    private void setPageTransformer() {
+        float pageMargin = getResources().getDimensionPixelOffset(R.dimen.pageMargin);
+        float selectedHeight = getResources().getDimensionPixelOffset(R.dimen.selectedHeight);
+        float pageOffset = getResources().getDimensionPixelOffset(R.dimen.offset);
+
         mBinding.vpNotebooks.setPageTransformer((page, position) -> {
             float offset = position * -(2 * pageOffset + pageMargin);
+            float height = Math.abs(position) * selectedHeight;
 //            float scale = (float) (1f - (0.1 * Math.pow(position, 2)));
             if (mBinding.vpNotebooks.getOrientation() == ViewPager2.ORIENTATION_HORIZONTAL) {
                 if (ViewCompat.getLayoutDirection(mBinding.vpNotebooks) == ViewCompat.LAYOUT_DIRECTION_RTL) {
@@ -71,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } else {
                     page.setTranslationX(offset);
                 }
+                page.setTranslationY(height);
 //                page.setScaleY(scale);
             } else {
                 page.setTranslationY(offset);
@@ -80,8 +82,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onResume() {
-        super.onResume();
         mNotebooksAdapter.setNotebooks(Datas.getNoteBooks());
+        super.onResume();
     }
 
     @Override
