@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
 
+import com.bukonudakonusalim.takenotes.utils.DatabaseController;
 import com.bukonudakonusalim.takenotes.utils.Datas;
 import com.bukonudakonusalim.takenotes.R;
 import com.bukonudakonusalim.takenotes.data.model.NoteModel;
@@ -16,6 +17,7 @@ import org.joda.time.DateTime;
 public class CreateNoteActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ActivityCreateNoteBinding mBinding;
+    private int mNotebookIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,13 +26,15 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
         setSupportActionBar(mBinding.toolbarNewNote);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        mNotebookIndex = getIntent().getIntExtra("notebook_id", -1);
+
         mBinding.btnCreateNote.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         if (view.getId() == mBinding.btnCreateNote.getId()) {
-            Datas.getNotes().add(new NoteModel(6, mBinding.etNoteTitle.getText().toString(), mBinding.etNoteContent.getText().toString(), null, DateTime.now(), DateTime.now(), false));
+            new NoteModel(mBinding.etNoteTitle.getText().toString(), mBinding.etNoteContent.getText().toString(), null).save(DatabaseController.getInstance(this), mNotebookIndex);
             this.finish();
         }
     }

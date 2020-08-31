@@ -66,7 +66,7 @@
                 android:maxLines="1"
                 android:textColor="#757575"
                 android:textSize="14sp"
-                tools:text="@{String.format(`Created %d days ago.`, Days.daysBetween(notebook.createdAt, DateTime.now()).getDays())}" />
+                tools:text="@{notebook.createdAt != null ? String.format(`Created %d days ago.`, Days.daysBetween(notebook.createdAt, DateTime.now()).getDays()): ``}" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>

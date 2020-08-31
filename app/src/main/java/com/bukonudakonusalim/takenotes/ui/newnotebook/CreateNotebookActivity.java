@@ -11,12 +11,10 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.bukonudakonusalim.takenotes.utils.Datas;
+import com.bukonudakonusalim.takenotes.utils.DatabaseController;
 import com.bukonudakonusalim.takenotes.R;
 import com.bukonudakonusalim.takenotes.data.model.NotebookModel;
 import com.bukonudakonusalim.takenotes.databinding.ActivityCreateNotebookBinding;
-
-import org.joda.time.DateTime;
 
 public class CreateNotebookActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -35,7 +33,7 @@ public class CreateNotebookActivity extends AppCompatActivity implements View.On
     @Override
     public void onClick(View view) {
         if (view.getId() == mBinding.btnCreateNotebook.getId()) {
-            Datas.getNoteBooks().add(new NotebookModel(2, mBinding.etNotebookTitle.getText().toString(), mBinding.etNotebookContent.getText().toString(), "#FFFFFF", 1, false, DateTime.now(), DateTime.now()));
+            new NotebookModel(mBinding.etNotebookTitle.getText().toString(), mBinding.etNotebookContent.getText().toString(), 0xffffff, 1).save(DatabaseController.getInstance(this));
             this.finish();
         }
     }

@@ -59,6 +59,10 @@ public class NotebooksAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         mOnNotebooksClickListener = onNotebooksClickListener;
     }
 
+    public NotebookModel getItemAt(int pos) {
+        return mNotebooks.get(pos);
+    }
+
     class NotebookItemViewHolder extends BaseViewHolder implements View.OnClickListener {
 
         protected NotebookItemBinding mBinding;

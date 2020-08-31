@@ -1,8 +1,18 @@
 package com.bukonudakonusalim.takenotes.data.model;
 
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+
+import com.bukonudakonusalim.takenotes.utils.DatabaseController;
+
 import org.joda.time.DateTime;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+
+import static com.bukonudakonusalim.takenotes.utils.DatabaseController.*;
 
 public class NoteModel {
 
@@ -22,6 +32,12 @@ public class NoteModel {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.isDeleted = isDeleted;
+    }
+
+    public NoteModel(String title, String content, List<Integer> labels) {
+        this.title = title;
+        this.content = content;
+        this.labels = labels;
     }
 
     public int getId() {
@@ -78,5 +94,43 @@ public class NoteModel {
 
     public void setDeleted(boolean deleted) {
         isDeleted = deleted;
+    }
+
+    public void save(DatabaseController controller, long notebookId) {
+        SQLiteDatabase db = controller.getWritableDatabase();
+        StringBuilder labelList = new StringBuilder();
+        if (labels != null) {
+            for (int i = 0; i < labels.size(); i++)
+                labelList.append(labels.get(i)).append(i == labels.size() - 1 ? "" : ",");
+        }
+        ContentValues values = new ContentValues();
+        values.put(NOTES_TITLE, title);
+        values.put(NOTES_CONTENT, content);
+        values.put(NOTES_LABELS, labelList.toString());
+        long id = db.insert(String.format(Locale.getDefault(), "'%d'", notebookId), null, values);
+        if (id != -1);
+        else;
+    }
+
+    public static List<NoteModel> getAllNotes(DatabaseController controller, long id) {
+        SQLiteDatabase db = controller.getWritableDatabase();
+        Cursor cs = db.rawQuery("SELECT " +
+                _ID + ", " +
+                NOTES_TITLE + ", " +
+                NOTES_CONTENT + ", " +
+                NOTES_LABELS + ", " +
+                NOTES_DELETED + ", " +
+                _CREATED_AT + ", " +
+                _UPDATED_AT + " FROM '" +
+                id + "';", null);
+
+        List<NoteModel> noteModels = new ArrayList<>();
+        if (cs.moveToFirst()) {
+            do {
+                NoteModel note = new NoteModel(cs.getInt(cs.getColumnIndex(_ID)), cs.getString(cs.getColumnIndex(NOTES_TITLE)), cs.getString(cs.getColumnIndex(NOTES_CONTENT)), null, null, null, cs.getInt(cs.getColumnIndex(NOTES_DELETED)) == 1);
+                noteModels.add(note);
+            } while (cs.moveToNext());
+        }
+        return noteModels;
     }
 }

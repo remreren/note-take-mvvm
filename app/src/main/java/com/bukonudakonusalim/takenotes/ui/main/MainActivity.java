@@ -9,12 +9,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.bukonudakonusalim.takenotes.utils.Datas;
+import com.bukonudakonusalim.takenotes.data.model.NotebookModel;
+import com.bukonudakonusalim.takenotes.utils.DatabaseController;
 import com.bukonudakonusalim.takenotes.R;
 import com.bukonudakonusalim.takenotes.databinding.ActivityMainBinding;
 import com.bukonudakonusalim.takenotes.ui.logs.LogsActivity;
 import com.bukonudakonusalim.takenotes.ui.newnotebook.CreateNotebookActivity;
 import com.bukonudakonusalim.takenotes.ui.notebook.NotebookActivity;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -41,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onNotebookClick(int pos) {
                 Intent notebookScreen = new Intent(MainActivity.this, NotebookActivity.class);
+                notebookScreen.putExtra("notebook_id", mNotebooksAdapter.getItemAt(pos).getId());
                 startActivity(notebookScreen);
             }
 
@@ -82,7 +86,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onResume() {
-        mNotebooksAdapter.setNotebooks(Datas.getNoteBooks());
+        new Thread(() -> {
+            List<NotebookModel> notebooks = NotebookModel.getAllNotebooks(DatabaseController.getInstance(MainActivity.this));
+            runOnUiThread(() -> mNotebooksAdapter.setNotebooks(notebooks));
+        }).start();
         super.onResume();
     }
 

@@ -1,13 +1,24 @@
 package com.bukonudakonusalim.takenotes.data.model;
 
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+
+import com.bukonudakonusalim.takenotes.utils.DatabaseController;
+
+import static com.bukonudakonusalim.takenotes.utils.DatabaseController.*;
+
 import org.joda.time.DateTime;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class NotebookModel {
 
     private int id;
     private String notebookName;
     private String notebookDescription;
-    private String notebookColor;
+    private int notebookColor;
     private int notebookType;
     private boolean isDeleted;
     private DateTime createdAt;
@@ -18,7 +29,7 @@ public class NotebookModel {
 
     }
 
-    public NotebookModel(int id, String notebookName, String notebookDescription, String notebookColor, int notebookType, boolean isDeleted, DateTime createdAt, DateTime updatedAt) {
+    public NotebookModel(int id, String notebookName, String notebookDescription, int notebookColor, int notebookType, boolean isDeleted, DateTime createdAt, DateTime updatedAt) {
         this.id = id;
         this.notebookName = notebookName;
         this.notebookDescription = notebookDescription;
@@ -27,6 +38,13 @@ public class NotebookModel {
         this.isDeleted = isDeleted;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+    }
+
+    public NotebookModel(String notebookName, String notebookDescription, int notebookColor, int notebookType) {
+        this.notebookName = notebookName;
+        this.notebookDescription = notebookDescription;
+        this.notebookColor = notebookColor;
+        this.notebookType = notebookType;
     }
 
     public int getId() {
@@ -53,11 +71,11 @@ public class NotebookModel {
         this.notebookDescription = notebookDescription;
     }
 
-    public String getNotebookColor() {
+    public int getNotebookColor() {
         return notebookColor;
     }
 
-    public void setNotebookColor(String notebookColor) {
+    public void setNotebookColor(int notebookColor) {
         this.notebookColor = notebookColor;
     }
 
@@ -91,5 +109,42 @@ public class NotebookModel {
 
     public void setUpdatedAt(DateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public void save(DatabaseController controller) {
+        new Thread(() -> {
+            SQLiteDatabase db = controller.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put(NOTEBOOKS_NAME, notebookName);
+            values.put(NOTEBOOKS_DESCRIPTION, notebookDescription);
+            values.put(NOTEBOOKS_COLOR, notebookColor);
+            values.put(NOTEBOOKS_TYPE, notebookType);
+            long id = db.insert(TABLE_NOTEBOOKS_NAME, null, values);
+            if (id != -1)
+                controller.createNotebookTable(id);
+        }).start();
+    }
+
+    public static List<NotebookModel> getAllNotebooks(DatabaseController controller) {
+        SQLiteDatabase db = controller.getWritableDatabase();
+        Cursor cs = db.rawQuery("SELECT " +
+                _ID + ", " +
+                NOTEBOOKS_NAME + ", " +
+                NOTEBOOKS_DESCRIPTION + ", " +
+                NOTEBOOKS_COLOR + ", " +
+                NOTEBOOKS_TYPE + ", " +
+                NOTEBOOKS_DELETED + ", " +
+                _CREATED_AT + ", " +
+                _UPDATED_AT + " FROM " +
+                TABLE_NOTEBOOKS_NAME + ";", null);
+
+        List<NotebookModel> notebookModels = new ArrayList<>();
+        if (cs.moveToFirst()) {
+            do {
+                NotebookModel notebook = new NotebookModel(cs.getInt(cs.getColumnIndex(_ID)), cs.getString(cs.getColumnIndex(NOTEBOOKS_NAME)), cs.getString(cs.getColumnIndex(NOTEBOOKS_DESCRIPTION)), 0xffffff, cs.getInt(cs.getColumnIndex(NOTEBOOKS_TYPE)), cs.getInt(cs.getColumnIndex(NOTEBOOKS_DELETED)) == 1, null, null);
+                notebookModels.add(notebook);
+            } while (cs.moveToNext());
+        }
+        return notebookModels;
     }
 }
