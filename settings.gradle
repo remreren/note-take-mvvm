@@ -1,2 +1,2 @@
-include ':app', ':logme'
+include ':app'
 rootProject.name = "Take Notes"
