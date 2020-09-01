@@ -39,6 +39,7 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1' // rxjava for android.
 
     implementation 'net.danlew:android.joda:2.10.6' // use that instead of javas original time library.
+    implementation 'com.github.remreren:hover:1.0.4'
 
     implementation "androidx.room:room-runtime:2.2.5" // room database extension.
     annotationProcessor "androidx.room:room-compiler:2.2.5" // room database compiler.
@@ -47,5 +48,4 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation project(':logme')
-    implementation project(':hover')
 }
