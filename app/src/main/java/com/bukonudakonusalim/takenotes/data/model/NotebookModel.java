@@ -18,7 +18,7 @@ public class NotebookModel {
     private int id;
     private String notebookName;
     private String notebookDescription;
-    private int notebookColor;
+    private String notebookColor;
     private int notebookType;
     private boolean isDeleted;
     private DateTime createdAt;
@@ -29,7 +29,7 @@ public class NotebookModel {
 
     }
 
-    public NotebookModel(int id, String notebookName, String notebookDescription, int notebookColor, int notebookType, boolean isDeleted, DateTime createdAt, DateTime updatedAt) {
+    public NotebookModel(int id, String notebookName, String notebookDescription, String notebookColor, int notebookType, boolean isDeleted, DateTime createdAt, DateTime updatedAt) {
         this.id = id;
         this.notebookName = notebookName;
         this.notebookDescription = notebookDescription;
@@ -40,7 +40,7 @@ public class NotebookModel {
         this.updatedAt = updatedAt;
     }
 
-    public NotebookModel(String notebookName, String notebookDescription, int notebookColor, int notebookType) {
+    public NotebookModel(String notebookName, String notebookDescription, String notebookColor, int notebookType) {
         this.notebookName = notebookName;
         this.notebookDescription = notebookDescription;
         this.notebookColor = notebookColor;
@@ -71,11 +71,11 @@ public class NotebookModel {
         this.notebookDescription = notebookDescription;
     }
 
-    public int getNotebookColor() {
+    public String getNotebookColor() {
         return notebookColor;
     }
 
-    public void setNotebookColor(int notebookColor) {
+    public void setNotebookColor(String notebookColor) {
         this.notebookColor = notebookColor;
     }
 
@@ -141,7 +141,7 @@ public class NotebookModel {
         List<NotebookModel> notebookModels = new ArrayList<>();
         if (cs.moveToFirst()) {
             do {
-                NotebookModel notebook = new NotebookModel(cs.getInt(cs.getColumnIndex(_ID)), cs.getString(cs.getColumnIndex(NOTEBOOKS_NAME)), cs.getString(cs.getColumnIndex(NOTEBOOKS_DESCRIPTION)), 0xffffff, cs.getInt(cs.getColumnIndex(NOTEBOOKS_TYPE)), cs.getInt(cs.getColumnIndex(NOTEBOOKS_DELETED)) == 1, null, null);
+                NotebookModel notebook = new NotebookModel(cs.getInt(cs.getColumnIndex(_ID)), cs.getString(cs.getColumnIndex(NOTEBOOKS_NAME)), cs.getString(cs.getColumnIndex(NOTEBOOKS_DESCRIPTION)), cs.getString(cs.getColumnIndex(NOTEBOOKS_COLOR)), cs.getInt(cs.getColumnIndex(NOTEBOOKS_TYPE)), cs.getInt(cs.getColumnIndex(NOTEBOOKS_DELETED)) == 1, null, null);
                 notebookModels.add(notebook);
             } while (cs.moveToNext());
         }

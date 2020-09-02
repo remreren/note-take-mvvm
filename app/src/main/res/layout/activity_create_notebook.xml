@@ -7,13 +7,16 @@
         android:layout_height="match_parent">
 
         <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar_new_notebook"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <com.google.android.material.appbar.MaterialToolbar
+                android:layout_marginTop="24dp"
                 android:id="@+id/toolbar_new_notebook"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
+                app:menu="@menu/create_notebook_menu"
                 app:title="New Notebook" />
         </com.google.android.material.appbar.AppBarLayout>
 

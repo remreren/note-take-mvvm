@@ -8,17 +8,21 @@ import androidx.databinding.DataBindingUtil;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.bukonudakonusalim.takenotes.utils.ColorUtils;
 import com.bukonudakonusalim.takenotes.utils.DatabaseController;
 import com.bukonudakonusalim.takenotes.R;
 import com.bukonudakonusalim.takenotes.data.model.NotebookModel;
 import com.bukonudakonusalim.takenotes.databinding.ActivityCreateNotebookBinding;
+import com.bukonudakonusalim.takenotes.utils.DialogColorSelect;
 
 public class CreateNotebookActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ActivityCreateNotebookBinding mBinding;
+    private String mColor = "light_blue";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +37,15 @@ public class CreateNotebookActivity extends AppCompatActivity implements View.On
     @Override
     public void onClick(View view) {
         if (view.getId() == mBinding.btnCreateNotebook.getId()) {
-            new NotebookModel(mBinding.etNotebookTitle.getText().toString(), mBinding.etNotebookContent.getText().toString(), 0xffffff, 1).save(DatabaseController.getInstance(this));
+            new NotebookModel(mBinding.etNotebookTitle.getText().toString(), mBinding.etNotebookContent.getText().toString(), "teal", 1).save(DatabaseController.getInstance(this));
             this.finish();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.create_notebook_menu, menu);
+        return true;
     }
 
     @Override
@@ -52,7 +62,18 @@ public class CreateNotebookActivity extends AppCompatActivity implements View.On
                     NavUtils.navigateUpTo(this, upIntent);
                 }
                 return true;
+
+            case R.id.menu_select_color:
+                DialogColorSelect.make(this, this::setColoring);
+                return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void setColoring(String color) {
+        mColor = color;
+        mBinding.toolbarNewNotebook.setBackgroundColor(ColorUtils.getColorTwist(this, color)[0]);
+        mBinding.appbarNewNotebook.setBackgroundColor(ColorUtils.getColorTwist(this, color)[1]);
+        mBinding.btnCreateNotebook.setBackgroundColor(ColorUtils.getColorTwist(this, color)[0]);
     }
 }

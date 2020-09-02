@@ -6,18 +6,24 @@ import androidx.databinding.DataBindingUtil;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.View;
 
 import com.bukonudakonusalim.takenotes.data.model.NotebookModel;
+import com.bukonudakonusalim.takenotes.utils.ColorUtils;
 import com.bukonudakonusalim.takenotes.utils.DatabaseController;
 import com.bukonudakonusalim.takenotes.R;
 import com.bukonudakonusalim.takenotes.databinding.ActivityMainBinding;
 import com.bukonudakonusalim.takenotes.ui.logs.LogsActivity;
 import com.bukonudakonusalim.takenotes.ui.newnotebook.CreateNotebookActivity;
 import com.bukonudakonusalim.takenotes.ui.notebook.NotebookActivity;
+import com.bukonudakonusalim.takenotes.utils.TimeUtils;
 
 import java.util.List;
+
+import logme.log.Logme;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -31,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         mBinding.btnLogs.setOnClickListener(this);
+        mBinding.tvTodayDay.setText(TimeUtils.getTodayLong());
         initNotebooksViewpager();
     }
 
@@ -88,7 +95,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onResume() {
         new Thread(() -> {
             List<NotebookModel> notebooks = NotebookModel.getAllNotebooks(DatabaseController.getInstance(MainActivity.this));
-            runOnUiThread(() -> mNotebooksAdapter.setNotebooks(notebooks));
+            runOnUiThread(() -> {
+                mNotebooksAdapter.setNotebooks(notebooks);
+                mBinding.vpNotebooks.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+                    @Override
+                    public void onPageSelected(int position) {
+                        super.onPageSelected(position);
+                        if (position != mNotebooksAdapter.getItemCount() - 1) {
+                            GradientDrawable drawable = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, ColorUtils.getColorTwist(MainActivity.this, mNotebooksAdapter.getItemAt(position).getNotebookColor()));
+                            mBinding.background.setBackground(drawable);
+                        }
+                    }
+                });
+            });
         }).start();
         super.onResume();
     }

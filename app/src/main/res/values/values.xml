@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <integer-array name="purple">
+        <item>@color/purple_300</item>
+        <item>@color/purple_700</item>
+    </integer-array>
+
+    <integer-array name="deep_purple">
+        <item>@color/deep_purple_300</item>
+        <item>@color/deep_purple_700</item>
+    </integer-array>
+
+    <integer-array name="red">
+        <item>@color/red_300</item>
+        <item>@color/red_700</item>
+    </integer-array>
+
+    <integer-array name="indigo">
+        <item>@color/indigo_300</item>
+        <item>@color/indigo_700</item>
+    </integer-array>
+
+    <integer-array name="blue">
+        <item>@color/blue_300</item>
+        <item>@color/blue_700</item>
+    </integer-array>
+
+    <integer-array name="light_blue">
+        <item>@color/light_blue_300</item>
+        <item>@color/light_blue_700</item>
+    </integer-array>
+
+    <integer-array name="teal">
+        <item>@color/teal_300</item>
+        <item>@color/teal_700</item>
+    </integer-array>
+
+    <integer-array name="lime">
+        <item>@color/lime_300</item>
+        <item>@color/lime_700</item>
+    </integer-array>
+
+    <integer-array name="amber">
+        <item>@color/amber_300</item>
+        <item>@color/amber_700</item>
+    </integer-array>
+
+    <integer-array name="orange">
+        <item>@color/orange_300</item>
+        <item>@color/orange_700</item>
+    </integer-array>
+
+    <integer-array name="deep_orange">
+        <item>@color/deep_orange_300</item>
+        <item>@color/deep_orange_700</item>
+    </integer-array>
+</resources>
