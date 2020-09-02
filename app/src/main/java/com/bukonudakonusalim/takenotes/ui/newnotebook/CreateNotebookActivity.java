@@ -37,7 +37,7 @@ public class CreateNotebookActivity extends AppCompatActivity implements View.On
     @Override
     public void onClick(View view) {
         if (view.getId() == mBinding.btnCreateNotebook.getId()) {
-            new NotebookModel(mBinding.etNotebookTitle.getText().toString(), mBinding.etNotebookContent.getText().toString(), "teal", 1).save(DatabaseController.getInstance(this));
+            new NotebookModel(mBinding.etNotebookTitle.getText().toString(), mBinding.etNotebookContent.getText().toString(), mColor, 1).save(DatabaseController.getInstance(this));
             this.finish();
         }
     }
