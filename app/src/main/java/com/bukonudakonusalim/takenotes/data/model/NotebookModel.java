@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.bukonudakonusalim.takenotes.data.DataHolder;
 import com.bukonudakonusalim.takenotes.utils.DatabaseController;
 
 import static com.bukonudakonusalim.takenotes.utils.DatabaseController.*;
@@ -25,6 +26,9 @@ public class NotebookModel {
     private DateTime createdAt;
     private DateTime updatedAt;
     private int size;
+
+    private List<NoteModel> notes;
+    private List<LabelModel> labels;
 
     public NotebookModel() {
 
@@ -146,6 +150,50 @@ public class NotebookModel {
                 notebookModels.add(notebook);
             } while (cs.moveToNext());
         }
+
+        for (int i = 0; i < notebookModels.size(); i++) {
+            Cursor c = db.rawQuery("SELECT '" +
+                    _ID + "', '" +
+                    _NAME + "', '" +
+                    _COLOR + "', '" +
+                    _ACTIVE + "' FROM 'labels_" +
+                    notebookModels.get(i).getId() + "';", null);
+
+            if (c.moveToFirst()) {
+                List<LabelModel> labels = new ArrayList<>();
+                do {
+                    LabelModel label = new LabelModel(c.getInt(c.getColumnIndex(_ID)), c.getString(c.getColumnIndex(_NAME)), c.getString(c.getColumnIndex(_COLOR)), c.getInt(c.getColumnIndex(_ACTIVE)) == 1);
+                    labels.add(label);
+                } while (c.moveToNext());
+                notebookModels.get(i).setLabels(labels);
+            }
+        }
+        DataHolder.getInstance().setNotebooks(notebookModels);
+
         return notebookModels;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public List<NoteModel> getNotes() {
+        return notes;
+    }
+
+    public void setNotes(List<NoteModel> notes) {
+        this.notes = notes;
+    }
+
+    public List<LabelModel> getLabels() {
+        return labels;
+    }
+
+    public void setLabels(List<LabelModel> labels) {
+        this.labels = labels;
     }
 }

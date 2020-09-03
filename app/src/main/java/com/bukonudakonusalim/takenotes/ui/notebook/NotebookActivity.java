@@ -9,13 +9,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.bukonudakonusalim.takenotes.data.DataHolder;
 import com.bukonudakonusalim.takenotes.data.model.NoteModel;
 import com.bukonudakonusalim.takenotes.utils.DatabaseController;
 import com.bukonudakonusalim.takenotes.R;
 import com.bukonudakonusalim.takenotes.databinding.ActivityNotebookBinding;
 import com.bukonudakonusalim.takenotes.ui.newnote.CreateNoteActivity;
 
+import java.util.Arrays;
 import java.util.List;
+
+import logme.log.Logme;
 
 public class NotebookActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -50,6 +54,8 @@ public class NotebookActivity extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onResume() {
         new Thread(() -> {
+            Logme.wtf(DataHolder.getInstance().getNotebooks().get(mNotebookIndex).getLabels().toString());
+            Logme.wtf(String.valueOf(DataHolder.getInstance().getNotebooks().get(mNotebookIndex).getLabels().size()));
             List<NoteModel> notes = NoteModel.getAllNotes(DatabaseController.getInstance(this), mNotebookIndex);
             runOnUiThread(() -> mNotesAdapter.setNotes(notes));
         }).start();

@@ -9,6 +9,7 @@ import com.bukonudakonusalim.takenotes.utils.DatabaseController;
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -107,9 +108,24 @@ public class NoteModel {
         values.put(NOTES_TITLE, title);
         values.put(NOTES_CONTENT, content);
         values.put(NOTES_LABELS, labelList.toString());
-        long id = db.insert(String.format(Locale.getDefault(), "'%d'", notebookId), null, values);
-        if (id != -1);
-        else;
+        long id = db.insert(String.format(Locale.getDefault(), "'notes_%d'", notebookId), null, values);
+        if (id != -1) ;
+        else ;
+    }
+
+    private List<String> stringToArray(String labels) {
+        return Arrays.asList(labels.split(","));
+    }
+
+    private String arrayToString(List<String> labels) {
+        StringBuilder labelString = new StringBuilder();
+        for (int i = 0; i < labels.size(); i++) {
+            labelString.append(labels.get(i));
+            if (i < labels.size() - 1) {
+                labelString.append(",");
+            }
+        }
+        return labelString.toString();
     }
 
     public static List<NoteModel> getAllNotes(DatabaseController controller, long id) {
@@ -121,7 +137,7 @@ public class NoteModel {
                 NOTES_LABELS + ", " +
                 _DELETED + ", " +
                 _CREATED_AT + ", " +
-                _UPDATED_AT + " FROM '" +
+                _UPDATED_AT + " FROM 'notes_" +
                 id + "';", null);
 
         List<NoteModel> noteModels = new ArrayList<>();
@@ -131,6 +147,7 @@ public class NoteModel {
                 noteModels.add(note);
             } while (cs.moveToNext());
         }
+
         return noteModels;
     }
 }

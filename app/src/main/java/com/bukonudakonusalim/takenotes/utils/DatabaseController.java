@@ -57,7 +57,7 @@ public class DatabaseController extends SQLiteOpenHelper {
 
     public void createNotebookTable(long tableId, Context context) {
         final SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("CREATE TABLE IF NOT EXISTS '" + tableId + "' ('" +
+        db.execSQL("CREATE TABLE IF NOT EXISTS 'notes_" + tableId + "' ('" +
                 _ID + "' INTEGER PRIMARY KEY AUTOINCREMENT, '" +
                 NOTES_TITLE + "' VARCHAR(250) NOT NULL, '" +
                 NOTES_CONTENT + "' VARCHAR(7500) NOT NULL, '" +
@@ -66,16 +66,17 @@ public class DatabaseController extends SQLiteOpenHelper {
                 _CREATED_AT + "' DATETIME DEFAULT CURRENT_TIMESTAMP, '" +
                 _UPDATED_AT + "' DATETIME DEFAULT CURRENT_TIMESTAMP);");
 
-        db.execSQL("CREATE TABLE IF NOT EXISTS '" + tableId + "_label' ('" +
+        db.execSQL("CREATE TABLE IF NOT EXISTS 'labels_" + tableId + "' ('" +
                 _ID + "' INTEGER PRIMARY KEY AUTOINCREMENT, '" +
-                _NAME + "' VARCHAR(50) NOT NULL DEFAULT 'blue', '" +
+                _NAME + "' VARCHAR(50), '" +
+                _COLOR + "' VARCHAR(50) NOT NULL DEFAULT 'blue', '" +
                 _ACTIVE + "' BOOLEAN NOT NULL DEFAULT 0);");
 
         for(String color: colorNames) {
-            db.insert(String.format(Locale.getDefault(), "'%d_label'", tableId), null, createColorValue(color));
+            db.insert(String.format(Locale.getDefault(), "'labels_%d'", tableId), null, createColorValue(color));
         }
 
-        db.execSQL("CREATE TRIGGER '" + tableId + "_trigger" + "' AFTER UPDATE ON '" + tableId +
+        db.execSQL("CREATE TRIGGER 'trigger_" + tableId + "' AFTER UPDATE ON 'notes_" + tableId +
                 "' BEGIN UPDATE '" +
                 tableId + "' SET '" +
                 _UPDATED_AT + "' = datetime('now') WHERE '" +
@@ -89,6 +90,7 @@ public class DatabaseController extends SQLiteOpenHelper {
     private ContentValues createColorValue(String color) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(_NAME, String.format(Locale.getDefault(), "'%s'", color));
+        contentValues.put(_COLOR, String.format(Locale.getDefault(), "'%s'", color));
         return contentValues;
     }
 
