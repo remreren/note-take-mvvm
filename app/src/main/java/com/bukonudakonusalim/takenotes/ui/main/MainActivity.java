@@ -6,10 +6,10 @@ import androidx.databinding.DataBindingUtil;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 
 import com.bukonudakonusalim.takenotes.data.model.NotebookModel;
 import com.bukonudakonusalim.takenotes.utils.ColorUtils;
@@ -22,8 +22,6 @@ import com.bukonudakonusalim.takenotes.ui.notebook.NotebookActivity;
 import com.bukonudakonusalim.takenotes.utils.TimeUtils;
 
 import java.util.List;
-
-import logme.log.Logme;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -38,6 +36,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mBinding.btnLogs.setOnClickListener(this);
         mBinding.tvTodayDay.setText(TimeUtils.getTodayLong());
+        mBinding.etNameOfPerson.setOnFocusChangeListener((view, b) -> mBinding.etNameOfPerson.setCursorVisible(b));
+        mBinding.etNameOfPerson.setOnEditorActionListener((textView, i, keyEvent) -> {
+            if (i == EditorInfo.IME_ACTION_DONE) {
+                mBinding.etNameOfPerson.clearFocus();
+                mBinding.etNameOfPerson.setCursorVisible(false);
+            }
+            return false;
+        });
         initNotebooksViewpager();
     }
 
@@ -102,8 +108,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     public void onPageSelected(int position) {
                         super.onPageSelected(position);
                         if (position != mNotebooksAdapter.getItemCount() - 1) {
-                            GradientDrawable drawable = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, ColorUtils.getColorTwist(MainActivity.this, mNotebooksAdapter.getItemAt(position).getNotebookColor()));
-                            mBinding.background.setBackground(drawable);
+                            mBinding.background.setBackground(new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, ColorUtils.getColorTwist(MainActivity.this, mNotebooksAdapter.getItemAt(position).getNotebookColor())));
+                        } else {
+                            mBinding.background.setBackground(new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, ColorUtils.getColorTwist(MainActivity.this, "light_blue")));
                         }
                     }
                 });

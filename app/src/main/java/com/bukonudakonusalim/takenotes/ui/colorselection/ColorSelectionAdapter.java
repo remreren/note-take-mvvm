@@ -1,4 +1,4 @@
-package com.bukonudakonusalim.takenotes.utils;
+package com.bukonudakonusalim.takenotes.ui.colorselection;
 
 import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bukonudakonusalim.takenotes.R;
 import com.bukonudakonusalim.takenotes.base.BaseViewHolder;
 import com.bukonudakonusalim.takenotes.databinding.ItemColorBinding;
+import com.bukonudakonusalim.takenotes.utils.ColorUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -17,12 +17,12 @@ import com.bukonudakonusalim.takenotes.utils.DatabaseController;
 import com.bukonudakonusalim.takenotes.R;
 import com.bukonudakonusalim.takenotes.data.model.NotebookModel;
 import com.bukonudakonusalim.takenotes.databinding.ActivityCreateNotebookBinding;
-import com.bukonudakonusalim.takenotes.utils.DialogColorSelect;
+import com.bukonudakonusalim.takenotes.ui.colorselection.DialogColorSelect;
 
 public class CreateNotebookActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ActivityCreateNotebookBinding mBinding;
-    private String mColor = "light_blue";
+    private String mColor = "blue";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,13 +31,15 @@ public class CreateNotebookActivity extends AppCompatActivity implements View.On
         setSupportActionBar(mBinding.toolbarNewNotebook);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        setColoring(mColor);
+
         mBinding.btnCreateNotebook.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         if (view.getId() == mBinding.btnCreateNotebook.getId()) {
-            new NotebookModel(mBinding.etNotebookTitle.getText().toString(), mBinding.etNotebookContent.getText().toString(), mColor, 1).save(DatabaseController.getInstance(this));
+            new NotebookModel(mBinding.etNotebookTitle.getText().toString(), mBinding.etNotebookContent.getText().toString(), mColor, 1).save(DatabaseController.getInstance(this), this);
             this.finish();
         }
     }
@@ -73,7 +75,7 @@ public class CreateNotebookActivity extends AppCompatActivity implements View.On
     private void setColoring(String color) {
         mColor = color;
         mBinding.toolbarNewNotebook.setBackgroundColor(ColorUtils.getColorTwist(this, color)[0]);
-        mBinding.appbarNewNotebook.setBackgroundColor(ColorUtils.getColorTwist(this, color)[1]);
+        mBinding.appbarNewNotebook.setBackgroundColor(ColorUtils.getColorTwist(this, color)[0]);
         mBinding.btnCreateNotebook.setBackgroundColor(ColorUtils.getColorTwist(this, color)[0]);
     }
 }

@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <array name="colors">
+        <item>@array/purple</item>
+        <item>@array/deep_purple</item>
+        <item>@array/red</item>
+        <item>@array/indigo</item>
+        <item>@array/blue</item>
+        <item>@array/light_blue</item>
+        <item>@array/teal</item>
+        <item>@array/lime</item>
+        <item>@array/amber</item>
+        <item>@array/orange</item>
+        <item>@array/deep_orange</item>
+    </array>
+
     <integer-array name="purple">
         <item>@color/purple_300</item>
         <item>@color/purple_700</item>

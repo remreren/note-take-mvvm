@@ -1,6 +1,7 @@
 package com.bukonudakonusalim.takenotes.data.model;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -111,7 +112,7 @@ public class NotebookModel {
         this.updatedAt = updatedAt;
     }
 
-    public void save(DatabaseController controller) {
+    public void save(DatabaseController controller, Context context) {
         new Thread(() -> {
             SQLiteDatabase db = controller.getWritableDatabase();
             ContentValues values = new ContentValues();
@@ -121,7 +122,7 @@ public class NotebookModel {
             values.put(NOTEBOOKS_TYPE, notebookType);
             long id = db.insert(TABLE_NOTEBOOKS_NAME, null, values);
             if (id != -1)
-                controller.createNotebookTable(id);
+                controller.createNotebookTable(id, context);
         }).start();
     }
 
@@ -133,7 +134,7 @@ public class NotebookModel {
                 NOTEBOOKS_DESCRIPTION + ", " +
                 NOTEBOOKS_COLOR + ", " +
                 NOTEBOOKS_TYPE + ", " +
-                NOTEBOOKS_DELETED + ", " +
+                DatabaseController._DELETED + ", " +
                 _CREATED_AT + ", " +
                 _UPDATED_AT + " FROM " +
                 TABLE_NOTEBOOKS_NAME + ";", null);
@@ -141,7 +142,7 @@ public class NotebookModel {
         List<NotebookModel> notebookModels = new ArrayList<>();
         if (cs.moveToFirst()) {
             do {
-                NotebookModel notebook = new NotebookModel(cs.getInt(cs.getColumnIndex(_ID)), cs.getString(cs.getColumnIndex(NOTEBOOKS_NAME)), cs.getString(cs.getColumnIndex(NOTEBOOKS_DESCRIPTION)), cs.getString(cs.getColumnIndex(NOTEBOOKS_COLOR)), cs.getInt(cs.getColumnIndex(NOTEBOOKS_TYPE)), cs.getInt(cs.getColumnIndex(NOTEBOOKS_DELETED)) == 1, null, null);
+                NotebookModel notebook = new NotebookModel(cs.getInt(cs.getColumnIndex(_ID)), cs.getString(cs.getColumnIndex(NOTEBOOKS_NAME)), cs.getString(cs.getColumnIndex(NOTEBOOKS_DESCRIPTION)), cs.getString(cs.getColumnIndex(NOTEBOOKS_COLOR)), cs.getInt(cs.getColumnIndex(NOTEBOOKS_TYPE)), cs.getInt(cs.getColumnIndex(DatabaseController._DELETED)) == 1, null, null);
                 notebookModels.add(notebook);
             } while (cs.moveToNext());
         }

@@ -1,4 +1,4 @@
-package com.bukonudakonusalim.takenotes.utils;
+package com.bukonudakonusalim.takenotes.ui.colorselection;
 
 import android.app.Dialog;
 import android.content.Context;

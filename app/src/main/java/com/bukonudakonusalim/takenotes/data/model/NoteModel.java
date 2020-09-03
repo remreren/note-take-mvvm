@@ -119,7 +119,7 @@ public class NoteModel {
                 NOTES_TITLE + ", " +
                 NOTES_CONTENT + ", " +
                 NOTES_LABELS + ", " +
-                NOTES_DELETED + ", " +
+                _DELETED + ", " +
                 _CREATED_AT + ", " +
                 _UPDATED_AT + " FROM '" +
                 id + "';", null);
@@ -127,7 +127,7 @@ public class NoteModel {
         List<NoteModel> noteModels = new ArrayList<>();
         if (cs.moveToFirst()) {
             do {
-                NoteModel note = new NoteModel(cs.getInt(cs.getColumnIndex(_ID)), cs.getString(cs.getColumnIndex(NOTES_TITLE)), cs.getString(cs.getColumnIndex(NOTES_CONTENT)), null, null, null, cs.getInt(cs.getColumnIndex(NOTES_DELETED)) == 1);
+                NoteModel note = new NoteModel(cs.getInt(cs.getColumnIndex(_ID)), cs.getString(cs.getColumnIndex(NOTES_TITLE)), cs.getString(cs.getColumnIndex(NOTES_CONTENT)), null, null, null, cs.getInt(cs.getColumnIndex(_DELETED)) == 1);
                 noteModels.add(note);
             } while (cs.moveToNext());
         }

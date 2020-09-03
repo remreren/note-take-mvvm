@@ -12,11 +12,12 @@
             android:id="@+id/btn_logs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="top|end"
             android:text="logs"
-            android:textSize="18sp"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
-            android:layout_gravity="top|end"/>
+            android:textSize="18sp"
+            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,14 +32,37 @@
                 android:layout_marginBottom="32dp"
                 android:orientation="vertical">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-medium"
-                    android:text="Welcome!"
-                    android:textColor="#E6FFFFFF"
-                    android:textSize="32sp"
-                    tools:text="Welcome emre" />
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Welcome"
+                        android:textColor="#E6FFFFFF"
+                        android:textSize="32sp"
+                        tools:text="Welcome" />
+
+                    <EditText
+                        android:id="@+id/et_name_of_person"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:fontFamily="sans-serif-medium"
+                        android:imeActionLabel="Done"
+                        android:imeOptions="actionDone"
+                        android:inputType="text"
+                        android:lines="1"
+                        android:paddingHorizontal="8dp"
+                        android:text="!"
+                        android:textColor="#E6FFFFFF"
+                        android:textSize="32sp"
+                        tools:text="Emre!" />
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="match_parent"
