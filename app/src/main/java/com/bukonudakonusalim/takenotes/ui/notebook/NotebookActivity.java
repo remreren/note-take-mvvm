@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 
 import com.bukonudakonusalim.takenotes.data.DataHolder;
@@ -37,10 +38,17 @@ public class NotebookActivity extends AppCompatActivity implements View.OnClickL
 
         mNotebookIndex = DataHolder.getInstance().getSelectedIndex();
         setColoring(DataHolder.getInstance().getNotebooks().get(mNotebookIndex).getNotebookColor());
+        mBinding.notesToolbar.setTitle(DataHolder.getInstance().getNotebooks().get(mNotebookIndex).getNotebookName());
 
         initNotesRecyclerview();
 
         mBinding.btnAddNote.setOnClickListener(this);;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.notebooks_menu, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     private void initNotesRecyclerview() {
@@ -62,9 +70,8 @@ public class NotebookActivity extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onResume() {
         new Thread(() -> {
-            Logme.wtf(DataHolder.getInstance().getNotebooks().get(mNotebookIndex).getLabels().toString());
-            Logme.wtf(String.valueOf(DataHolder.getInstance().getNotebooks().get(mNotebookIndex).getLabels().size()));
             List<NoteModel> notes = NoteModel.getAllNotes(DatabaseController.getInstance(this), DataHolder.getInstance().getNotebooks().get(mNotebookIndex).getId());
+            DataHolder.getInstance().getNotebooks().get(mNotebookIndex).setNotes(notes);
             runOnUiThread(() -> mNotesAdapter.setNotes(notes));
         }).start();
         super.onResume();

@@ -149,6 +149,8 @@ public class NotebookModel {
             } while (cs.moveToNext());
         }
 
+        cs.close();
+
         for (int i = 0; i < notebookModels.size(); i++) {
             Cursor c = db.rawQuery("SELECT " +
                     _ID + ", " +
@@ -165,6 +167,7 @@ public class NotebookModel {
                 } while (c.moveToNext());
                 notebookModels.get(i).setLabels(labels);
             }
+            c.close();
         }
         DataHolder.getInstance().setNotebooks(notebookModels);
 

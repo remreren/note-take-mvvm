@@ -7,6 +7,8 @@
         android:layout_height="match_parent">
 
         <com.google.android.material.appbar.AppBarLayout
+            android:paddingTop="24dp"
+            android:id="@+id/appbar_new_note"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 

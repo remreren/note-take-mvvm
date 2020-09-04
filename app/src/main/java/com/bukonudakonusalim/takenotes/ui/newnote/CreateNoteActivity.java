@@ -6,13 +6,12 @@ import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
 
+import com.bukonudakonusalim.takenotes.data.DataHolder;
+import com.bukonudakonusalim.takenotes.utils.ColorUtils;
 import com.bukonudakonusalim.takenotes.utils.DatabaseController;
-import com.bukonudakonusalim.takenotes.utils.Datas;
 import com.bukonudakonusalim.takenotes.R;
 import com.bukonudakonusalim.takenotes.data.model.NoteModel;
 import com.bukonudakonusalim.takenotes.databinding.ActivityCreateNoteBinding;
-
-import org.joda.time.DateTime;
 
 public class CreateNoteActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -26,9 +25,16 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
         setSupportActionBar(mBinding.toolbarNewNote);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mNotebookIndex = getIntent().getIntExtra("notebook_id", -1);
+        mNotebookIndex = DataHolder.getInstance().getSelectedIndex();
+        setColoring(DataHolder.getInstance().getNotebooks().get(mNotebookIndex).getNotebookColor());
 
         mBinding.btnCreateNote.setOnClickListener(this);
+    }
+
+    private void setColoring(String color) {
+        mBinding.toolbarNewNote.setBackgroundColor(ColorUtils.getColorTwist(this, color)[0]);
+        mBinding.appbarNewNote.setBackgroundColor(ColorUtils.getColorTwist(this, color)[0]);
+        mBinding.btnCreateNote.setBackgroundColor(ColorUtils.getColorTwist(this, color)[0]);
     }
 
     @Override

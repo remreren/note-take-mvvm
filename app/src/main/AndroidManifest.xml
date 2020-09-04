@@ -15,8 +15,7 @@
             android:theme="@style/Theme.StatusBar" />
         <activity
             android:name=".ui.newnote.CreateNoteActivity"
-            android:parentActivityName=".ui.notebook.NotebookActivity"
-            android:theme="@style/Theme.StatusBar" />
+            android:parentActivityName=".ui.notebook.NotebookActivity"/>
         <activity
             android:name=".ui.notebook.NotebookActivity"
             android:parentActivityName=".ui.main.MainActivity"/>

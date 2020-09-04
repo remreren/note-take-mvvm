@@ -13,6 +13,7 @@ import android.view.inputmethod.EditorInfo;
 
 import com.bukonudakonusalim.takenotes.data.DataHolder;
 import com.bukonudakonusalim.takenotes.data.model.NotebookModel;
+import com.bukonudakonusalim.takenotes.data.model.SettingModel;
 import com.bukonudakonusalim.takenotes.utils.ColorUtils;
 import com.bukonudakonusalim.takenotes.utils.DatabaseController;
 import com.bukonudakonusalim.takenotes.R;
@@ -37,9 +38,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mBinding.btnLogs.setOnClickListener(this);
         mBinding.tvTodayDay.setText(TimeUtils.getTodayLong());
+
+        new Thread(() -> {
+            SettingModel setting = SettingModel.getSetting(DatabaseController.getInstance(getApplicationContext()), "user_name");
+            runOnUiThread(() -> mBinding.etNameOfPerson.setText(setting == null ? "!" : setting.getValue()));
+        }).start();
         mBinding.etNameOfPerson.setOnFocusChangeListener((view, b) -> mBinding.etNameOfPerson.setCursorVisible(b));
         mBinding.etNameOfPerson.setOnEditorActionListener((textView, i, keyEvent) -> {
             if (i == EditorInfo.IME_ACTION_DONE) {
+                new SettingModel("user_name", mBinding.etNameOfPerson.getText().toString().trim()).save(DatabaseController.getInstance(getApplicationContext()));
+                mBinding.etNameOfPerson.setText(mBinding.etNameOfPerson.getText().toString().trim());
                 mBinding.etNameOfPerson.clearFocus();
                 mBinding.etNameOfPerson.setCursorVisible(false);
             }

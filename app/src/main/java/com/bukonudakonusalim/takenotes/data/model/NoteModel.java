@@ -148,6 +148,8 @@ public class NoteModel {
             } while (cs.moveToNext());
         }
 
+        cs.close();
+
         return noteModels;
     }
 }
