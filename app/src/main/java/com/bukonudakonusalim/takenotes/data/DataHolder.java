@@ -8,6 +8,7 @@ import java.util.List;
 public class DataHolder {
 
     private List<NotebookModel> mNotebooks;
+    private int mSelectedIndex = 0;
     private static DataHolder ourInstance = new DataHolder();
 
     public static DataHolder getInstance() {
@@ -26,5 +27,13 @@ public class DataHolder {
 
     public void setNotebooks(List<NotebookModel> notebooks) {
         mNotebooks = notebooks;
+    }
+
+    public int getSelectedIndex() {
+        return mSelectedIndex;
+    }
+
+    public void setSelectedIndex(int selectedIndex) {
+        mSelectedIndex = selectedIndex;
     }
 }

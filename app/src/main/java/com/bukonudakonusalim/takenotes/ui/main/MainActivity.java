@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 
+import com.bukonudakonusalim.takenotes.data.DataHolder;
 import com.bukonudakonusalim.takenotes.data.model.NotebookModel;
 import com.bukonudakonusalim.takenotes.utils.ColorUtils;
 import com.bukonudakonusalim.takenotes.utils.DatabaseController;
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onNotebookClick(int pos) {
                 Intent notebookScreen = new Intent(MainActivity.this, NotebookActivity.class);
                 notebookScreen.putExtra("notebook_id", mNotebooksAdapter.getItemAt(pos).getId());
+                DataHolder.getInstance().setSelectedIndex(pos);
                 startActivity(notebookScreen);
             }
 

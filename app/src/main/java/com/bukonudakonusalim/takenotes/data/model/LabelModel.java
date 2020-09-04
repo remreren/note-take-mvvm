@@ -45,4 +45,14 @@ public class LabelModel {
     public void setActive(boolean active) {
         isActive = active;
     }
+
+    @Override
+    public String toString() {
+        return "LabelModel{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", color='" + color + '\'' +
+                ", isActive=" + isActive +
+                '}';
+    }
 }

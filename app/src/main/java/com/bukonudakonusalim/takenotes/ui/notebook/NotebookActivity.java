@@ -11,12 +11,12 @@ import android.view.View;
 
 import com.bukonudakonusalim.takenotes.data.DataHolder;
 import com.bukonudakonusalim.takenotes.data.model.NoteModel;
+import com.bukonudakonusalim.takenotes.utils.ColorUtils;
 import com.bukonudakonusalim.takenotes.utils.DatabaseController;
 import com.bukonudakonusalim.takenotes.R;
 import com.bukonudakonusalim.takenotes.databinding.ActivityNotebookBinding;
 import com.bukonudakonusalim.takenotes.ui.newnote.CreateNoteActivity;
 
-import java.util.Arrays;
 import java.util.List;
 
 import logme.log.Logme;
@@ -33,12 +33,14 @@ public class NotebookActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_notebook);
         setSupportActionBar(mBinding.notesToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mNotebookIndex = getIntent().getIntExtra("notebook_id", -1);
+        mNotebookIndex = DataHolder.getInstance().getSelectedIndex();
+        setColoring(DataHolder.getInstance().getNotebooks().get(mNotebookIndex).getNotebookColor());
 
         initNotesRecyclerview();
 
-        mBinding.btnAddNote.setOnClickListener(this);
+        mBinding.btnAddNote.setOnClickListener(this);;
     }
 
     private void initNotesRecyclerview() {
@@ -51,12 +53,18 @@ public class NotebookActivity extends AppCompatActivity implements View.OnClickL
         mBinding.rvNotes.setAdapter(mNotesAdapter);
     }
 
+    private void setColoring(String color) {
+        mBinding.notesAppbar.setBackgroundColor(ColorUtils.getColorTwist(this, color)[0]);
+        mBinding.notesToolbar.setBackgroundColor(ColorUtils.getColorTwist(this, color)[0]);
+        mBinding.btnAddNote.setBackgroundColor(ColorUtils.getColorTwist(this, color)[0]);
+    }
+
     @Override
     protected void onResume() {
         new Thread(() -> {
             Logme.wtf(DataHolder.getInstance().getNotebooks().get(mNotebookIndex).getLabels().toString());
             Logme.wtf(String.valueOf(DataHolder.getInstance().getNotebooks().get(mNotebookIndex).getLabels().size()));
-            List<NoteModel> notes = NoteModel.getAllNotes(DatabaseController.getInstance(this), mNotebookIndex);
+            List<NoteModel> notes = NoteModel.getAllNotes(DatabaseController.getInstance(this), DataHolder.getInstance().getNotebooks().get(mNotebookIndex).getId());
             runOnUiThread(() -> mNotesAdapter.setNotes(notes));
         }).start();
         super.onResume();

@@ -117,17 +117,15 @@ public class NotebookModel {
     }
 
     public void save(DatabaseController controller, Context context) {
-        new Thread(() -> {
-            SQLiteDatabase db = controller.getWritableDatabase();
-            ContentValues values = new ContentValues();
-            values.put(NOTEBOOKS_NAME, notebookName);
-            values.put(NOTEBOOKS_DESCRIPTION, notebookDescription);
-            values.put(NOTEBOOKS_COLOR, notebookColor);
-            values.put(NOTEBOOKS_TYPE, notebookType);
-            long id = db.insert(TABLE_NOTEBOOKS_NAME, null, values);
-            if (id != -1)
-                controller.createNotebookTable(id, context);
-        }).start();
+        SQLiteDatabase db = controller.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(NOTEBOOKS_NAME, notebookName);
+        values.put(NOTEBOOKS_DESCRIPTION, notebookDescription);
+        values.put(NOTEBOOKS_COLOR, notebookColor);
+        values.put(NOTEBOOKS_TYPE, notebookType);
+        long id = db.insert(TABLE_NOTEBOOKS_NAME, null, values);
+        if (id != -1)
+            controller.createNotebookTable(id, context);
     }
 
     public static List<NotebookModel> getAllNotebooks(DatabaseController controller) {
@@ -138,7 +136,7 @@ public class NotebookModel {
                 NOTEBOOKS_DESCRIPTION + ", " +
                 NOTEBOOKS_COLOR + ", " +
                 NOTEBOOKS_TYPE + ", " +
-                DatabaseController._DELETED + ", " +
+                _DELETED + ", " +
                 _CREATED_AT + ", " +
                 _UPDATED_AT + " FROM " +
                 TABLE_NOTEBOOKS_NAME + ";", null);
@@ -152,11 +150,11 @@ public class NotebookModel {
         }
 
         for (int i = 0; i < notebookModels.size(); i++) {
-            Cursor c = db.rawQuery("SELECT '" +
-                    _ID + "', '" +
-                    _NAME + "', '" +
-                    _COLOR + "', '" +
-                    _ACTIVE + "' FROM 'labels_" +
+            Cursor c = db.rawQuery("SELECT " +
+                    _ID + ", " +
+                    _NAME + ", " +
+                    _COLOR + ", " +
+                    _ACTIVE + " FROM 'labels_" +
                     notebookModels.get(i).getId() + "';", null);
 
             if (c.moveToFirst()) {
