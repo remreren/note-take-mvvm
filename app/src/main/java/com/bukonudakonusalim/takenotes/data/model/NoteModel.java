@@ -14,8 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import logme.log.Logme;
-
 import static com.bukonudakonusalim.takenotes.utils.DatabaseController.*;
 
 public class NoteModel {

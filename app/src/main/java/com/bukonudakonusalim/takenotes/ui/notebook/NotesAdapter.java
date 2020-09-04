@@ -5,6 +5,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bukonudakonusalim.takenotes.R;
@@ -50,15 +51,20 @@ public class NotesAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     class NoteItemViewHolder extends BaseViewHolder {
 
         private NoteItemBinding mBinding;
+        private LabelAdapter mLabelAdapter;
 
         public NoteItemViewHolder(NoteItemBinding binding) {
             super(binding.getRoot());
             mBinding = binding;
+            mLabelAdapter = new LabelAdapter();
+            mBinding.rvLabels.setLayoutManager(new LinearLayoutManager(mBinding.getRoot().getContext(), RecyclerView.HORIZONTAL, false));
+            mBinding.rvLabels.setAdapter(mLabelAdapter);
         }
 
         @Override
         public void bind(int pos) {
             mBinding.setNote(mNotes.get(pos));
+            mLabelAdapter.setLabels(mNotes.get(pos).getLabels());
         }
     }
 }

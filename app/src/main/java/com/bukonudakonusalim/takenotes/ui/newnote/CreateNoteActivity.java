@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
-import android.app.Dialog;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -56,7 +55,7 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.menu_select_labels) {
-            Dialog dialog = DialogSelectLabel.make(this, labelModel -> {
+            DialogSelectLabel.make(this, labelModel -> {
                 if (labelModel.isSelected()) mSelectedLabels.remove(labelModel);
                 else mSelectedLabels.add(labelModel);
             });
@@ -67,7 +66,7 @@ public class CreateNoteActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View view) {
         if (view.getId() == mBinding.btnCreateNote.getId()) {
-            new NoteModel(mBinding.etNoteTitle.getText().toString(), mBinding.etNoteContent.getText().toString(), null).save(DatabaseController.getInstance(this), DataHolder.getInstance().getNotebooks().get(mNotebookIndex).getId());
+            new NoteModel(mBinding.etNoteTitle.getText().toString(), mBinding.etNoteContent.getText().toString(), mSelectedLabels).save(DatabaseController.getInstance(this), DataHolder.getInstance().getNotebooks().get(mNotebookIndex).getId());
             this.finish();
         }
     }
