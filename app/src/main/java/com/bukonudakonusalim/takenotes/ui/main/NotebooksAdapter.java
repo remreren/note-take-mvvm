@@ -41,13 +41,17 @@ public class NotebooksAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     @Override
     public int getItemCount() {
-        return (mNotebooks != null ? mNotebooks.size() : 0) + 1;
+        return (mNotebooks != null ? mNotebooks.size() : 0) + (hasExtraRow() ? 1 : 0);
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (position == getItemCount() - 1) return R.layout.notebook_add_item;
+        if (position == getItemCount() - 1 && hasExtraRow()) return R.layout.notebook_add_item;
         else return R.layout.notebook_item;
+    }
+
+    private boolean hasExtraRow() {
+        return mNotebooks == null || mNotebooks.size() < 10;
     }
 
     public void setNotebooks(List<NotebookModel> notebooks) {

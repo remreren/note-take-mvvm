@@ -55,7 +55,6 @@ public class SettingModel {
                 OPTIONS_KEY + " = '" +
                 key + "';", null);
 
-        Logme.wtf("%d", cs.getCount());
         if (cs.moveToFirst()) {
             SettingModel setting = new SettingModel(cs.getString(cs.getColumnIndex(OPTIONS_KEY)), cs.getString(cs.getColumnIndex(OPTIONS_VALUE)));
             cs.close();

@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/menu_select_color"
-        android:icon="@drawable/ic_round_color_lens_24"
-        android:title="Select a color"
+        android:id="@+id/menu_select_labels"
+        android:icon="@drawable/ic_round_label_24"
+        android:title="Select labels"
         app:showAsAction="always" />
 </menu>

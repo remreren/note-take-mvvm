@@ -6,6 +6,7 @@ public class LabelModel {
     private String name;
     private String color;
     private boolean isActive = false;
+    private boolean isSelected = false;
 
     public LabelModel(int id, String name, String color, boolean isActive) {
         this.id = id;
@@ -44,6 +45,14 @@ public class LabelModel {
 
     public void setActive(boolean active) {
         isActive = active;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
     }
 
     @Override

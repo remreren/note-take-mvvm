@@ -4,14 +4,17 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.bukonudakonusalim.takenotes.data.DataHolder;
 import com.bukonudakonusalim.takenotes.utils.DatabaseController;
+import com.bukonudakonusalim.takenotes.utils.TimeUtils;
 
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+
+import logme.log.Logme;
 
 import static com.bukonudakonusalim.takenotes.utils.DatabaseController.*;
 
@@ -20,12 +23,12 @@ public class NoteModel {
     private int id;
     private String title;
     private String content;
-    private List<Integer> labels;
+    private List<LabelModel> labels;
     private DateTime createdAt;
     private DateTime updatedAt;
     private boolean isDeleted;
 
-    public NoteModel(int id, String title, String content, List<Integer> labels, DateTime createdAt, DateTime updatedAt, boolean isDeleted) {
+    public NoteModel(int id, String title, String content, List<LabelModel> labels, DateTime createdAt, DateTime updatedAt, boolean isDeleted) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -35,7 +38,7 @@ public class NoteModel {
         this.isDeleted = isDeleted;
     }
 
-    public NoteModel(String title, String content, List<Integer> labels) {
+    public NoteModel(String title, String content, List<LabelModel> labels) {
         this.title = title;
         this.content = content;
         this.labels = labels;
@@ -65,11 +68,11 @@ public class NoteModel {
         this.content = content;
     }
 
-    public List<Integer> getLabels() {
+    public List<LabelModel> getLabels() {
         return labels;
     }
 
-    public void setLabels(List<Integer> labels) {
+    public void setLabels(List<LabelModel> labels) {
         this.labels = labels;
     }
 
@@ -97,30 +100,22 @@ public class NoteModel {
         isDeleted = deleted;
     }
 
-    public void save(DatabaseController controller, long notebookId) {
+    public void save(DatabaseController controller, int notebookId) {
         SQLiteDatabase db = controller.getWritableDatabase();
-        StringBuilder labelList = new StringBuilder();
-        if (labels != null) {
-            for (int i = 0; i < labels.size(); i++)
-                labelList.append(labels.get(i)).append(i == labels.size() - 1 ? "" : ",");
-        }
+        String labels = arrayToString(getLabels());
         ContentValues values = new ContentValues();
         values.put(NOTES_TITLE, title);
         values.put(NOTES_CONTENT, content);
-        values.put(NOTES_LABELS, labelList.toString());
+        values.put(NOTES_LABELS, labels);
         long id = db.insert(String.format(Locale.getDefault(), "'notes_%d'", notebookId), null, values);
         if (id != -1) ;
         else ;
     }
 
-    private List<String> stringToArray(String labels) {
-        return Arrays.asList(labels.split(","));
-    }
-
-    private String arrayToString(List<String> labels) {
+    private String arrayToString(List<LabelModel> labels) {
         StringBuilder labelString = new StringBuilder();
         for (int i = 0; i < labels.size(); i++) {
-            labelString.append(labels.get(i));
+            labelString.append(labels.get(i).getColor());
             if (i < labels.size() - 1) {
                 labelString.append(",");
             }
@@ -128,7 +123,23 @@ public class NoteModel {
         return labelString.toString();
     }
 
-    public static List<NoteModel> getAllNotes(DatabaseController controller, long id) {
+    private static List<LabelModel> stringToArray(String labels, List<LabelModel> labelList) {
+        List<LabelModel> label = new ArrayList<>();
+        String[] labelColors = labels.split(",");
+
+        for (String color: labelColors) {
+            for (LabelModel labelt: labelList) {
+                if (labelt.getColor().equals(color)) {
+                    label.add(labelt);
+                    break;
+                }
+            }
+        }
+
+        return label;
+    }
+
+    public static List<NoteModel> getAllNotes(DatabaseController controller, int id) {
         SQLiteDatabase db = controller.getWritableDatabase();
         Cursor cs = db.rawQuery("SELECT " +
                 _ID + ", " +
@@ -143,7 +154,7 @@ public class NoteModel {
         List<NoteModel> noteModels = new ArrayList<>();
         if (cs.moveToFirst()) {
             do {
-                NoteModel note = new NoteModel(cs.getInt(cs.getColumnIndex(_ID)), cs.getString(cs.getColumnIndex(NOTES_TITLE)), cs.getString(cs.getColumnIndex(NOTES_CONTENT)), null, null, null, cs.getInt(cs.getColumnIndex(_DELETED)) == 1);
+                NoteModel note = new NoteModel(cs.getInt(cs.getColumnIndex(_ID)), cs.getString(cs.getColumnIndex(NOTES_TITLE)), cs.getString(cs.getColumnIndex(NOTES_CONTENT)), stringToArray(cs.getString(cs.getColumnIndex(NOTES_LABELS)), DataHolder.getInstance().getNotebooks().get(id).getLabels()), TimeUtils.timeStringToDateTime(cs.getString(cs.getColumnIndex(_CREATED_AT))), TimeUtils.timeStringToDateTime(cs.getString(cs.getColumnIndex(_UPDATED_AT))), cs.getInt(cs.getColumnIndex(_DELETED)) == 1);
                 noteModels.add(note);
             } while (cs.moveToNext());
         }

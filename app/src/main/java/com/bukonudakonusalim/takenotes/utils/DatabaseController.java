@@ -89,8 +89,8 @@ public class DatabaseController extends SQLiteOpenHelper {
 
     private ContentValues createColorValue(String color) {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(_NAME, String.format(Locale.getDefault(), "'%s'", color));
-        contentValues.put(_COLOR, String.format(Locale.getDefault(), "'%s'", color));
+        contentValues.put(_NAME, String.format(Locale.getDefault(), "%s", color));
+        contentValues.put(_COLOR, String.format(Locale.getDefault(), "%s", color));
         return contentValues;
     }
 
