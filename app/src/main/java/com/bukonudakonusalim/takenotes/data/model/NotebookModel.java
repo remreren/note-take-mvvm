@@ -14,6 +14,9 @@ import org.joda.time.DateTime;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+
+import logme.log.Logme;
 
 public class NotebookModel {
 
@@ -126,6 +129,27 @@ public class NotebookModel {
         long id = db.insert(TABLE_NOTEBOOKS_NAME, null, values);
         if (id != -1)
             controller.createNotebookTable(id, context);
+    }
+
+    public void update(DatabaseController controller, Context context) {
+        SQLiteDatabase db = controller.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(_ID, id);
+        values.put(NOTEBOOKS_NAME, notebookName);
+        values.put(NOTEBOOKS_DESCRIPTION, notebookDescription);
+        values.put(NOTEBOOKS_COLOR, notebookColor);
+        values.put(NOTEBOOKS_TYPE, notebookType);
+        long id = db.replace(TABLE_NOTEBOOKS_NAME, null, values);
+        Logme.wtf("%d", id);
+    }
+
+    public void delete(DatabaseController controller) {
+        SQLiteDatabase db = controller.getWritableDatabase();
+        db.delete(TABLE_NOTEBOOKS_NAME, String.format(Locale.getDefault(), "%s='%d'", _ID, id), null);
+        db.execSQL("DROP TABLE IF EXISTS 'notes" +
+                id + "';");
+        db.execSQL("DROP TABLE IF EXISTS 'labels" +
+                id + "';");
     }
 
     public static List<NotebookModel> getAllNotebooks(DatabaseController controller) {

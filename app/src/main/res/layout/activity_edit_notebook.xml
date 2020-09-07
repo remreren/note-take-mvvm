@@ -7,17 +7,17 @@
         android:layout_height="match_parent">
 
         <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appbar_new_notebook"
+            android:id="@+id/appbar_edit_notebook"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:layout_marginTop="24dp"
-                android:id="@+id/toolbar_new_notebook"
+                android:id="@+id/toolbar_edit_notebook"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                app:menu="@menu/create_notebook_menu"
-                app:title="Create Notebook" />
+                app:menu="@menu/edit_notebook_menu"
+                app:title="Edit Notebook" />
         </com.google.android.material.appbar.AppBarLayout>
 
         <ScrollView
@@ -75,12 +75,12 @@
         </ScrollView>
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/btn_create_notebook"
+            android:id="@+id/btn_edit_notebook"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|bottom"
             android:layout_marginBottom="16dp"
-            android:text="Create New Notebook"
+            android:text="Save Notebook"
             android:textColor="#FFFFFF"
             app:backgroundTint="@color/colorPrimary"
             app:icon="@drawable/ic_round_save_24"

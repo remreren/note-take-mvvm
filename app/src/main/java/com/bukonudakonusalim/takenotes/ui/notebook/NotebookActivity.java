@@ -1,5 +1,6 @@
 package com.bukonudakonusalim.takenotes.ui.notebook;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,10 +9,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.bukonudakonusalim.takenotes.data.DataHolder;
 import com.bukonudakonusalim.takenotes.data.model.NoteModel;
+import com.bukonudakonusalim.takenotes.ui.editnotebook.EditNotebookActivity;
 import com.bukonudakonusalim.takenotes.utils.ColorUtils;
 import com.bukonudakonusalim.takenotes.utils.DatabaseController;
 import com.bukonudakonusalim.takenotes.R;
@@ -49,6 +52,16 @@ public class NotebookActivity extends AppCompatActivity implements View.OnClickL
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.notebooks_menu, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.menu_edit_notebook) {
+            Intent editNotebook = new Intent(NotebookActivity.this, EditNotebookActivity.class);
+            startActivity(editNotebook);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void initNotesRecyclerview() {

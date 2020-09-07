@@ -6,9 +6,4 @@
         android:icon="@drawable/ic_round_edit_24"
         android:title="Edit Notebook"
         app:showAsAction="always" />
-    <item
-        android:id="@+id/menu_delete_notebook"
-        android:icon="@drawable/ic_round_delete_24"
-        android:title="Delete Notebook"
-        app:showAsAction="always" />
 </menu>

@@ -1,7 +1,6 @@
 package com.bukonudakonusalim.takenotes.ui.notebook;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -11,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bukonudakonusalim.takenotes.R;
 import com.bukonudakonusalim.takenotes.base.BaseViewHolder;
 import com.bukonudakonusalim.takenotes.data.model.LabelModel;
-import com.bukonudakonusalim.takenotes.databinding.ItemLabelBinding;
 import com.bukonudakonusalim.takenotes.databinding.ItemLabelNoteBinding;
 
 import java.util.List;

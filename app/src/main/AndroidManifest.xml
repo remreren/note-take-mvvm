@@ -23,6 +23,9 @@
             android:name=".ui.newnotebook.CreateNotebookActivity"
             android:parentActivityName=".ui.main.MainActivity" />
         <activity
+            android:name=".ui.editnotebook.EditNotebookActivity"
+            android:parentActivityName=".ui.notebook.NotebookActivity" />
+        <activity
             android:name=".ui.main.MainActivity"
             android:launchMode="singleTop">
             <intent-filter>
