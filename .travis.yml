@@ -1,4 +1,5 @@
 language: android
+sudo: required
 jdk: oraclejdk8
 env:
   global:
@@ -11,21 +12,22 @@ android:
     - 'google-gdk-license-.+'
   components:
     - tools
+    - tools
     - platform-tools
-    # The BuildTools version used by your project
-    - build-tools-$ANDROID_BUILD_TOOLS_VERSION
-    # The SDK version used to compile your project
-    - android-$ANDROID_API_LEVEL
-    # Additional components
     - extra-google-google_play_services
     - extra-google-m2repository
     - extra-android-m2repository
-    - addon-google_apis-google-$ANDROID_API_LEVEL
+    - build-tools-25.0.0
+    - android-22
+    - sys-img-armeabi-v7a-android-$ANDROID_API_LEVEL
+before_install:
+  - yes | sdkmanager "platforms;android-$ANDROID_API_LEVEL"
 before_script:
-  # Prepare pre-accepted licenses to not be promted at installation
-  - mkdir -p "$ANDROID_HOME/licenses"
-  - cp ./google-licenses/* "$ANDROID_HOME/licenses/"
-script:
-  - ./gradlew build check
+  - echo no | android create avd --force -n test -t android-$ANDROID_API_LEVEL --abi armeabi-v7a
+  - emulator -avd test -no-audio -no-window &
+  - android-wait-for-emulator
+  - adb shell input keyevent 82 &
 after_script:
   - bash <(curl -s https://codecov.io/bash)
+script:
+  - ./gradlew build check
