@@ -21,14 +21,6 @@ android {
         }
     }
 
-    testOptions {
-        execution 'ANDROID_TEST_ORCHESTRATOR'
-        animationsDisabled true
-        unitTests {
-            includeAndroidResources = true
-        }
-    }
-
     buildFeatures {
         dataBinding = true
     }
