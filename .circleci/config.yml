@@ -32,6 +32,6 @@ jobs:
           destination: reports
       - store_test_results:
           path: app/build/test-results
-      - codecov/upload:
-          file: app/build/codecov
-          token: efe32461-5139-497d-9e8a-8389ba8e36ae
+      - run:
+          name: codecov
+          command: bash <(curl -s https://codecov.io/bash)
