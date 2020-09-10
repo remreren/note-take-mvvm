@@ -13,7 +13,7 @@ object DateConverter {
 
     @TypeConverter
     @JvmStatic
-    fun toTimeStamp(dateTime: DateTime?): Long {
-        return dateTime!!.millis
+    fun toTimeStamp(dateTime: DateTime?): Long? {
+        return dateTime?.millis
     }
 }

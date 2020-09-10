@@ -13,6 +13,8 @@ import com.bukonudakonusalim.takenotes.R
 import com.bukonudakonusalim.takenotes.data.DataHolder
 import com.bukonudakonusalim.takenotes.data.ViewModelProviderFactory
 import com.bukonudakonusalim.takenotes.data.model.Setting
+import com.bukonudakonusalim.takenotes.data.viewmodel.MainViewModel
+import com.bukonudakonusalim.takenotes.data.viewmodel.NotebooksViewModel
 import com.bukonudakonusalim.takenotes.databinding.ActivityMainBinding
 import com.bukonudakonusalim.takenotes.ui.main.NotebooksAdapter.OnNotebooksClickListener
 import com.bukonudakonusalim.takenotes.ui.newnotebook.CreateNotebookActivity
@@ -25,6 +27,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var mBinding: ActivityMainBinding
     private val mMainViewModel: MainViewModel by lazy { ViewModelProvider(this, ViewModelProviderFactory(this.application, null)).get(MainViewModel::class.java) }
+    private val mNotebooksViewModel: NotebooksViewModel by lazy { ViewModelProvider(this, ViewModelProviderFactory(this.application, null)).get(NotebooksViewModel::class.java) }
 
     private lateinit var mNotebooksAdapter: NotebooksAdapter
 
@@ -53,6 +56,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
         })
+
         initNotebooksViewpager()
     }
 
@@ -62,6 +66,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun setNotebooksViewpager() {
+        mNotebooksViewModel.allNotebooks.observe(this, { notebooks ->
+            mNotebooksAdapter.setNotebooks(notebooks)
+        })
         mNotebooksAdapter.setOnNotebooksClickListener(object : OnNotebooksClickListener {
             override fun onNotebookClick(pos: Int) {
                 val notebookScreen = Intent(this@MainActivity, NotebookActivity::class.java)

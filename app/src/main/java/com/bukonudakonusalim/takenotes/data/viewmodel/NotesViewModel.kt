@@ -1,4 +1,4 @@
-package com.bukonudakonusalim.takenotes.ui.notebook
+package com.bukonudakonusalim.takenotes.data.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -10,7 +10,7 @@ import com.bukonudakonusalim.takenotes.data.repo.NotesRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class NotebookViewModel(application: Application, notebookId: Long) : AndroidViewModel(application) {
+class NotesViewModel(application: Application, notebookId: Long) : AndroidViewModel(application) {
 
     private val notesRepo: NotesRepo
 

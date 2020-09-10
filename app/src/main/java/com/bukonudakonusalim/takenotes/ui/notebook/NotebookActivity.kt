@@ -11,8 +11,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bukonudakonusalim.takenotes.R
-import com.bukonudakonusalim.takenotes.data.DataHolder
 import com.bukonudakonusalim.takenotes.data.ViewModelProviderFactory
+import com.bukonudakonusalim.takenotes.data.viewmodel.NotesViewModel
 import com.bukonudakonusalim.takenotes.databinding.ActivityNotebookBinding
 import com.bukonudakonusalim.takenotes.ui.editnotebook.EditNotebookActivity
 import com.bukonudakonusalim.takenotes.ui.newnote.CreateNoteActivity
@@ -22,7 +22,7 @@ class NotebookActivity: AppCompatActivity(), View.OnClickListener {
     private lateinit var mBinding: ActivityNotebookBinding
 
     private val mNotebookIndex: Long by lazy { intent.getLongExtra("notebook_id", 0) }
-    private val mViewModel: NotebookViewModel by lazy { ViewModelProvider(this, ViewModelProviderFactory(this.application, mNotebookIndex)).get(NotebookViewModel::class.java) }
+    private val mViewModel: NotesViewModel by lazy { ViewModelProvider(this, ViewModelProviderFactory(this.application, mNotebookIndex)).get(NotesViewModel::class.java) }
 
     private lateinit var mNotesAdapter: NotesAdapter
 

@@ -1,4 +1,4 @@
-package com.bukonudakonusalim.takenotes.ui.main
+package com.bukonudakonusalim.takenotes.data.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
