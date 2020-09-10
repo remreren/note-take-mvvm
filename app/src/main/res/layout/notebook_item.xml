@@ -19,7 +19,7 @@
 
         <variable
             name="notebook"
-            type="com.bukonudakonusalim.takenotes.data.model.NotebookModel" />
+            type="com.bukonudakonusalim.takenotes.data.model.Notebook" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -45,7 +45,7 @@
                 android:layout_marginBottom="8dp"
                 android:fontFamily="sans-serif-light"
                 android:maxLines="10"
-                android:text="@{notebook.notebookDescription}"
+                android:text="@{notebook.description}"
                 android:textColor="#757575"
                 android:textSize="18sp"
                 tools:text="" />
@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-medium"
                 android:maxLines="3"
-                android:text="@{notebook.notebookName}"
+                android:text="@{notebook.name}"
                 android:textColor="#757575"
                 android:textSize="24sp"
                 tools:text="@tools:sample/lorem/random" />

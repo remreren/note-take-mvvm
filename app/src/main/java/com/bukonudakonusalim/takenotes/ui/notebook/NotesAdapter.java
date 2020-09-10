@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bukonudakonusalim.takenotes.R;
+import com.bukonudakonusalim.takenotes.data.model.Note;
 import com.bukonudakonusalim.takenotes.data.model.NoteModel;
 import com.bukonudakonusalim.takenotes.databinding.NoteItemBinding;
 import com.bukonudakonusalim.takenotes.base.BaseViewHolder;
@@ -18,7 +19,7 @@ import java.util.List;
 
 public class NotesAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
-    private ArrayList<NoteModel> mNotes;
+    private ArrayList<Note> mNotes;
 
     @NonNull
     @Override
@@ -37,12 +38,12 @@ public class NotesAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         return mNotes != null ? mNotes.size() : 0;
     }
 
-    public void setNotes(List<NoteModel> notes) {
+    public void setNotes(List<Note> notes) {
         mNotes = new ArrayList<>(notes);
         notifyDataSetChanged();
     }
 
-    public void addNotes(List<NoteModel> notes) {
+    public void addNotes(List<Note> notes) {
         if (mNotes == null) mNotes = new ArrayList<>();
         mNotes.addAll(notes);
         notifyItemRangeInserted(mNotes.size() - notes.size(), mNotes.size() - 1);
@@ -64,7 +65,7 @@ public class NotesAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         @Override
         public void bind(int pos) {
             mBinding.setNote(mNotes.get(pos));
-            mLabelAdapter.setLabels(mNotes.get(pos).getLabels());
+//            mLabelAdapter.setLabels(mNotes.get(pos));
         }
     }
 }

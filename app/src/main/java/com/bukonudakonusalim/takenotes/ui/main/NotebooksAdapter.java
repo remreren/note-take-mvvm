@@ -9,7 +9,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bukonudakonusalim.takenotes.R;
-import com.bukonudakonusalim.takenotes.data.model.NotebookModel;
+import com.bukonudakonusalim.takenotes.data.model.Notebook;
 import com.bukonudakonusalim.takenotes.databinding.NotebookAddItemBinding;
 import com.bukonudakonusalim.takenotes.databinding.NotebookItemBinding;
 import com.bukonudakonusalim.takenotes.base.BaseViewHolder;
@@ -19,7 +19,7 @@ import java.util.List;
 
 public class NotebooksAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
-    private ArrayList<NotebookModel> mNotebooks;
+    private ArrayList<Notebook> mNotebooks;
     private OnNotebooksClickListener mOnNotebooksClickListener;
 
     @NonNull
@@ -54,7 +54,7 @@ public class NotebooksAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         return mNotebooks == null || mNotebooks.size() < 10;
     }
 
-    public void setNotebooks(List<NotebookModel> notebooks) {
+    public void setNotebooks(List<Notebook> notebooks) {
         mNotebooks = new ArrayList<>(notebooks);
         notifyDataSetChanged();
     }
@@ -63,7 +63,7 @@ public class NotebooksAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         mOnNotebooksClickListener = onNotebooksClickListener;
     }
 
-    public NotebookModel getItemAt(int pos) {
+    public Notebook getItemAt(int pos) {
         return mNotebooks.get(pos);
     }
 
