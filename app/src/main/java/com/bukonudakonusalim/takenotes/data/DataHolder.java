@@ -5,6 +5,7 @@ import com.bukonudakonusalim.takenotes.data.model.NotebookModel;
 import java.util.ArrayList;
 import java.util.List;
 
+@Deprecated
 public class DataHolder {
 
     private List<NotebookModel> mNotebooks;

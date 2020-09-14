@@ -73,7 +73,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             override fun onNotebookClick(pos: Int) {
                 val notebookScreen = Intent(this@MainActivity, NotebookActivity::class.java)
                 notebookScreen.putExtra("notebook_id", mNotebooksAdapter.getItemAt(pos).id)
-                DataHolder.getInstance().selectedIndex = pos
                 startActivity(notebookScreen)
             }
 

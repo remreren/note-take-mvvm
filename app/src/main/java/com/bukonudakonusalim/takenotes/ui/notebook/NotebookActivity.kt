@@ -50,6 +50,7 @@ class NotebookActivity: AppCompatActivity(), View.OnClickListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.menu_edit_notebook) {
             val editNotebook = Intent(this@NotebookActivity, EditNotebookActivity::class.java)
+            editNotebook.putExtra("notebook_id", mNotebookIndex)
             startActivity(editNotebook)
             return true
         }

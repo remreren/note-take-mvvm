@@ -7,6 +7,10 @@ import com.bukonudakonusalim.takenotes.data.model.Notebook
 class NotebooksRepo(private val notebooksDao: NotebooksDao) {
     val notebooks: LiveData<List<Notebook>> = notebooksDao.getNotebooks()
 
+    suspend fun delete(notebook:Notebook) {
+        notebooksDao.deleteNotebook(notebook)
+    }
+
     suspend fun insert(notebook:Notebook) {
         notebooksDao.insertNotebook(notebook)
     }
